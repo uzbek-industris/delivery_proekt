@@ -1,0 +1,28 @@
+{% comment %} {% extends 'wrap.html'%} {% endcomment %}
+
+{% for order in OrderInfo %}
+    <tr>
+        <td>{{ order.deliver_name }}</td>
+        <td>{{ order.client }}</td>
+        <td>{{ order.price }}</td>
+        <td>{{ order.sity }}</td>
+        <td>{{ order.street }}</td>
+        <td>{{ order.home }}</td>
+        <td>{{ order.entrance }}</td>
+        <td>{{ order.floor }}</td>
+        <td>{{ order.flat }}</td>
+        <td>{{ order.comment }}</td>
+        <td>{{ order.status }}</td>
+    </tr>
+{% endfor %}
+
+{% block content %}
+  <h1>Статусы заказов</h1>
+  <ul>
+    {% for order_status in order_statuses %}
+      <li>{{ order_status.name }}</li>
+    {% empty %}
+      <li>No order statuses found.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

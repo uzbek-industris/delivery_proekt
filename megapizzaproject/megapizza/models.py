@@ -1,8 +1,32 @@
 from django.db import models
+from django.contrib.auth.models import User
 
+class Tovar(models.Model):
+    brand = models.CharField(max_length=100)
+    fullname = models.CharField(max_length=400)
+    image = models.ImageField(upload_to='megapizza/static/images')
+    description = models.TextField()
+    price = models.FloatField()
+    def __str__(self):
+        return str(self.id) + ' ' + str(self.fullname)
+    
+class Corf(models.Model):
+    tovar = models.ForeignKey(Tovar, on_delete=models.PROTECT, null=False)
+    user = models.ForeignKey(User, on_delete=models.PROTECT, null=False)
+
+    
 class OrderInfo(models.Model):
-    deliver_name = models.IntegerField()
-    client = models.IntegerField()
+    STATUS = (
+        ('0', 'Принят'),
+        ('1', 'На кухне'),
+        ('2', 'У курьера'),
+        ('3', 'Доставлен'),
+        ('4', 'Отменён'),
+        ('5', 'Не обработан'),
+    )
+    id = models.AutoField(primary_key=True)
+    deliver_name = models.TextField()
+    client = models.ForeignKey(User, on_delete=models.PROTECT, null=False)
     price = models.IntegerField()
     sity = models.CharField(max_length=255)
     street = models.CharField(max_length=255)
@@ -10,28 +34,8 @@ class OrderInfo(models.Model):
     entrance = models.IntegerField()
     floor = models.IntegerField()
     flat = models.IntegerField()
-    comment = models.CharField(max_length=255)
-    STATUS_CHOICES = [
-        (0, 'В обработке'),
-        (1, 'Принят'),
-        (2, 'Готовится'),
-        (3, 'Передан курьеру'),
-        (4, 'Ждет курьера'),
-        (5, 'Доставлен'),
-        (6, 'Отказан'),
-        (7, 'Отменен'),
-    ]
-    status = models.IntegerField(choices=STATUS_CHOICES)
-
-class Users(models.Model):
-    name = models.CharField(max_length=255)
-    STATUS_CHOICES = [
-        (0, 'Менеджер'),
-        (1, 'Заказчик'),
-        (2, 'Доставщик'),
-        (3, 'Кухня'),
-    ]
-    status = models.IntegerField(choices=STATUS_CHOICES)
+    comment = models.TextField()
+    status = models.CharField(max_length=3, choices=STATUS)
 
 class Kitchen(models.Model):
     city = models.CharField(max_length=255)
@@ -39,6 +43,6 @@ class Kitchen(models.Model):
     house = models.IntegerField()
     capacity = models.IntegerField()
 
-    # def __str__(self):
-    #     return self.name
+    def __str__(self):
+        return self.city
 

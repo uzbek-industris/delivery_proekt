@@ -1,77 +1,47 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="ru">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{{title}} - MEGAPIZZA</title>
-
-        <link rel="stylesheet" href="{% static 'css/style.css'%}">
-        <link rel="stylesheet" href="{% static 'css/reset.css'%}">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
-    </head>
-    <body>
-        <header>
-            <nav class="menu">
-                <img src="{% static "images/logo.png" %}" alt="Логотип" class="logo_photo">
-                <a href="{% url "index" %}">
-                    <h1 class="site_name">MEGAPIZZA</h1>
-                </a>
-                <ul class="nav_list">
-                    <li class="nav_item"><a href="{% url "catalog" %}" class="nav_link">Каталог</a></li>
-                    <li class="nav_item"><a href="{% url "contacts" %}" class="nav_link">Контакты</a></li>
-                    <li class="nav_item"><a href="{% url "corf" %}" class="nav_link">Корзина</a></li>
-                </ul>
-                <button class="custom-btn btn-14">Личный кабинет</button>
-            </nav>
-        </header>
-
-        <main>
-            <section class="tagline">
-                <p>
-                   <em>"Насыщенный вкус, тонкий стиль - в каждом ломтике нашей пиццы ощущается искусство!"</em> 
-                </p>
-            </section>
-            <div class="all">
-                <input checked type="radio" name="respond" id="desktop">
-                    <article id="slider">
-                            <input checked type="radio" name="slider" id="switch1">
-                            <input type="radio" name="slider" id="switch2">
-                            <input type="radio" name="slider" id="switch3">
-                            <input type="radio" name="slider" id="switch4">
-                            <input type="radio" name="slider" id="switch5">
-                        <div id="slides">
-                            <div id="overflow">
-                                <div class="image">
-                                    <article><img src="{% static "images/main-photo1.jpg" %}"></article>
-                                    <article><img src="{% static "images/main-photo2.jpg" %}"></article>
-                                    <article><img src="{% static "images/main-photo3.jpg" %}"></article>
-                                    <article><img src="{% static "images/main-photo4.jpg" %}"></article>
-                                    <article><img src="{% static "images/main-photo5.jpg" %}"></article>
+{% extends "wrap.html" %}
+{% load static%}
+{% block content %}
+{% if user.is_authenticated %}
+        {% if not is_mobile %}
+        <div class="container">
+            <div class="row">
+            <div class="col-3">
+        </div>
+        {%endif%}
+        {% if not is_mobile %}<div class="col-8">{%endif%}
+            <div class="content">
+                {% if orders.count == 0 %} <h3 style="width: 100%;  display: flex; justify-content: center;">Здесь почему то пусто, кажется вы пока что ничего не заказывали...</h3> </div>
+                {% else %}
+                <div style="margin-top: -40px;" class="viewed">
+                    <h4 class="header-title">
+                        Заказы 
+                    </h4>
+                    <div class="favorite-items1">
+                        {% for view in orders %}
+                        {% if view.user == user %}
+                            <a href="{% url 'order_state' view.order_number %}" class="favorite-item">
+                                <div style="width: 240px;">
+                                    <img class="favorite-item-image" src="{{ view.ordered_items.image.url }}" alt="{{ view.ordered_items.full_name }}">
                                 </div>
-                            </div>
-                        </div>
-                        <div id="controls">
-                            <label for="switch1"></label>
-                            <label for="switch2"></label>
-                            <label for="switch3"></label>
-                            <label for="switch4"></label>
-                            <label for="switch5"></label>
-                        </div>
-                        <div id="active">
-                            <label for="switch1"></label>
-                            <label for="switch2"></label>
-                            <label for="switch3"></label>
-                            <label for="switch4"></label>
-                            <label for="switch5"></label>
-                        </div>
-                    </article>
+                                <div style="position: absolute; width: 60%; {%if not is_mobile%} right: 50px; {%else%} right: 25px; {%endif%}" class="favorite-item-details">
+                                    <h4 class="favorite-item-title">{{ view.ordered_items.name }} - {{ view.order_number }}</h4>
+                                    <h4 class="favorite-item-title-2">{{ view.ordered_items.price }} {{ view.ordered_items.currency }}</h4>
+                                </div>
+                            </a>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
-        </main>
-    </body>
-</html>
+        {% if not is_mobile %}
+        </div>
+    </div>
+</div>
+{%endif%}
+{%endif%}
+    {% else %}
+        <h2>Авторизуйся, товарищ!</h2>
+    {% endif %}
+    </div>
+</div>
+{% endblock content %}
