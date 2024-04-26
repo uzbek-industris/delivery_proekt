@@ -1,0 +1,200 @@
+html {
+    box-sizing: border-box;
+}
+
+*, *::before, *::before {
+    box-sizing: inherit;
+}
+
+body {
+    background-image: url("/static/images/background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+}
+
+header {
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 50px;
+}
+
+main {
+    margin-left: 75px;
+}
+
+.site_name {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    font-size: 48px;
+    color: black;
+    transition: color 0.2s;
+}
+
+.site_name:hover {
+    color: orange;
+}
+
+.logo_photo {
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+}
+
+.menu {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 10px;
+}
+
+.nav_list {
+    width: 100%;
+    text-align: right;
+    padding-right: 100px;
+}
+
+.nav_item {
+    display: inline-block;
+    margin: 10px 40px;
+}
+
+.nav_link {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    font-size: 32px;
+    color: black;
+    transition: color 0.2s;
+}
+
+.nav_link:hover {
+    color: orange;
+}
+
+.custom-btn {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    width: 130px;
+    height: 80px;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 25px;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+    7px 7px 20px 0px rgba(0,0,0,.1),
+    4px 4px 5px 0px rgba(0,0,0,.1);
+    outline: none;
+}
+
+.btn-14 {
+    background: rgb(255,151,0);
+    border: none;
+    z-index: 1;
+}
+
+.btn-14:after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 0;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    border-radius: 5px;
+    background-color: #eaf818;
+    background-image: linear-gradient(315deg, #eaf818 0%, #f6fc9c 74%);
+    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5);
+    transition: all 0.3s ease;
+}
+
+.btn-14:hover {
+    color: #000;
+}
+
+.btn-14:hover:after {
+    top: auto;
+    bottom: 0;
+    height: 100%;
+}
+
+.btn-14:active {
+    top: 2px;
+}
+
+.pizza_card {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-right: 50px;
+    margin-bottom: 50px;
+    width: 300px;
+    height: 400px;
+    background-color: white;
+    border-radius: 25px;
+    box-shadow: 10px 10px 15px rgba(26, 17, 17, 0.5);
+    transition: box-shadow 0.5s;
+}
+
+.pizza_card:hover {
+    box-shadow: 10px 10px 15px rgba(206, 95, 5, 0.5);
+}
+
+.img_wrapper {
+    padding-top: 20px;
+    padding-bottom: 30px;
+    text-align: center;
+}
+
+.pizza_img {
+    width: 200px;
+    height: 200px;
+}
+
+.pizza_text {
+    font-family: "Comfortaa", sans-serif;
+}
+
+.pizza_title {
+    text-align: center;
+    font-size: 24px;
+    padding-bottom: 15px;
+}
+
+.pizza_description {
+    font-size: 16px;
+    padding-bottom: 25px;
+}
+
+.cost {
+    font-size: 24px;
+    color: green;
+    margin-top:0 !important;
+    margin-bottom:-1rem !important;
+}
+
+.buy_btn {
+    font-size: 20px;
+    transition: color 0.2s;
+}
+
+.buy_btn:hover {
+    color: orange;
+    text-decoration: underline;
+}
+
+.price_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cards_list {
+    display: flex;
+    flex-wrap: wrap;
+}
+

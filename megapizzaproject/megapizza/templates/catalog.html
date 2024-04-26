@@ -13,9 +13,8 @@
                 <img src="{{ tovar.image.url }}" class="card-img-top" alt="{{ tovar.fullname }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ tovar.fullname }}</h5>
-                    <p class="card-text">{{ tovar.description|truncatewords:30 }}</p>
                     <p class="card-text"><strong>Цена:</strong> {{ tovar.price }} руб.</p>
-                    <p class="card-text"><strong>Бренд:</strong> {{ tovar.brand }}</p>
+                    <p class="card-text">{{ tovar.description|truncatewords:30 }}</p>
                 </div>
             </div>
         </div>
