@@ -13,4 +13,4 @@ urlpatterns = [
     path('new/', views.new, name='new'),
     path('', include('django.contrib.auth.urls'), name='login'),
     path('signup/', views.SignUp.as_view(), name="signup"),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

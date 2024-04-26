@@ -1,8 +1,8 @@
 {% extends "wrap.html" %}
 {%load static%}
 {%block header%}
-    <link rel="stylesheet" href="{% static 'css/kitchen.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/kitchen.css' %}">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
 {%endblock header%}
 
 {% block content %}
@@ -13,16 +13,23 @@
                 <div class="card-header text-center bg-primary text-white">
                     Добро пожаловать на Кухню
                 </div>
+                {% for order in orders %}
                 <div class="card-body">
-                    <h5 class="card-title text-center">Товар: <span class="text-primary">{{ order.ordered_items.full_name }}</span></h5>
-                    <h6 class="card-subtitle mb-2 text-muted text-center">Номер заказа: <span class="text-primary">{{ order.order_number }}</span></h6>
+                    <h5 class="card-subtitle mb-2 text-muted text-center">Заказ№ <span class="text-primary">{{ order.id }}</span></h5>
                     <p class="card-text">
                         <strong>Доставщик:</strong> <span class="text-primary">{{ order.client.username }}</span><br>
                         <strong>Дата заказа:</strong> <span class="text-primary">{{ order.created_at }}</span><br>
-                        <strong>Адрес:</strong> <span class="text-primary">{{ order.sity }}, {{ order.street }}, {{ order.home }}, {{ order.entrance }}, {{ order.floor }}, {{ order.flat }}</span><br>
+                        <strong>Адрес:</strong> <span class="text-primary">Город {{ order.sity }}, {{ order.street }}, дом{{ order.home }}, подъезд {{ order.entrance }}, этаж {{ order.floor }}, квартира {{ order.flat }}</span><br>
                         <strong>Комментарий:</strong> <span class="text-primary">{{ order.comment }}</span><br>
-                        <strong>Статус:</strong> <span class="text-primary">{{ order.status }}</span><br>
+                        <strong>Статус:</strong> <span class="text-primary">{{ order.get_status_name }}</span>
+                        <select class="form-control status-select" data-order-id="{{ order.id }}">
+                        {% for status_id, status_name in OrderInfo.STATUS %}
+                            <option value="{{ status_id }}" {% if order.status == status_id %}selected{% endif %} style="width: 25%">{{ status_name }}</option>
+                        {% endfor %}
+                        </select>
                     </p>
+                </div>         
+                {% endfor %}
                     {% comment %} <a href="{% url 'orders' %}" class="btn btn-primary btn-block mt-3">Вернуться к списку заказов</a> {% endcomment %}
                 </div>
             </div>
